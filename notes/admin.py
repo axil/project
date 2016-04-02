@@ -1,3 +1,12 @@
 from django.contrib import admin
+from notes.models import Notes
 
-# Register your models here.
+
+class Notes_Admin(admin.ModelAdmin):
+    fields = ['title', 'text', 'author', 'date']
+    list_display = ['title', 'date']
+    list_filter = ['title']
+    search_fields = ['title']
+
+
+admin.site.register(Notes, Notes_Admin)
