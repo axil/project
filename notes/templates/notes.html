@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block notes %}
+
+Hello World!
+
+
+
+<!--{% for article in articles %}-->
+
+<!--<div class="blog-post">-->
+    <!--<h2 class="blog-post-title"><a href="/articles/get/{{article.id}}/"> {{article.article_title}}</a></h2>-->
+    <!--<p class="blog-post-meta">{{article.article_date}} by <a href="#">{{article.article_author.username}}</a></p>-->
+    <!--<P> {% autoescape off%}{{article.article_text_short}}{%endautoescape%}</P>-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+
+<!--<nav>-->
+    <!--<ul class="pager">-->
+        <!--{% if articles.has_previous %}-->
+            <!--<li><a href="/page/{{ articles.previous_page_number }}">Previous</a></li>-->
+        <!--{% endif %}-->
+        <!--{% if articles.has_next %}-->
+            <!--<li><a href="/page/{{ articles.next_page_number }}">Next</a></li>-->
+        <!--{% endif %}-->
+    <!--</ul>-->
+<!--</nav>-->
+<!--&lt;!&ndash;-&#45;&#45;-->
+<!--<center><div class="row">-->
+
+                <!--<ul class="pagination" role="navigation" aria-label="Pagination">-->
+                    <!--{% if articles.has_previous %}-->
+                    <!--<li><a href="" aria-label="Next page"> Previous <span class="show-for-sr">page</span></a></li>-->
+                     <!--{% else %}-->
+                    <!--<li class="disabled">Previous <span class="show-for-sr">Previous</span></li>-->
+                <!--{% endif %}-->
+                    <!--{% for page in articles.paginator.page_range %}-->
+                    <!--{% if page == articles.number %}-->
+                        <!--<li><a href="/page/{{ page }}/"  class="current" aria-label="Page {{ page }}">{{ page }}</a></li>-->
+                    <!--{% else %}-->
+                    <!--<li><a href="/page/{{ page }}/">{{ page }}</a></li>-->
+                    <!--{% endif %}-->
+                <!--{% endfor %}-->
+                    <!--{% if articles.has_next %}-->
+                    <!--<li><a href="/page/{{ articles.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>-->
+                     <!--{% else %}-->
+                    <!--<li class="disabled">Next page <span class="show-for-sr">Next</span></li>-->
+                    <!--{% endif %}-->
+                <!--</ul>-->
+
+   <!--</div></center>-->
+<!--&#45;&#45;&ndash;&gt;-->
+
+
+{% endblock %}
