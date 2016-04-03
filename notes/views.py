@@ -24,6 +24,15 @@ def notes(request, first='-date', second='title'):
     return render_to_response('notes.html', args)
 
 
+
+def categorysort(request, first='-date', second='title'):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    print(args['username'])
+    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by('category', first)
+    args['projects'] = Category.objects.all()
+    return render_to_response('notes.html', args)
+
 def mynotes(request, first='-date', second='title'):
     args = {}
     args['username'] = auth.get_user(request).username
@@ -45,7 +54,7 @@ def category(request, category_id=1):
     args = {}
     args['projects'] = Category.objects.all()
     args['category'] = Category.objects.get(id=category_id)
-    args['notes'] = Notes.objects.filter(category=category_id, publish=True)
+    args['notes'] = Notes.objects.filter(category=category_id)
     args['username'] = auth.get_user(request).username
     # branch_categories = args['category'].get_descendants(include_self=True)
     # args['category_articles'] = Notes.objects.filter(category__in=branch_categories).distinct()
@@ -116,3 +125,4 @@ def removefavorites(request, id=None):
     except ObjectDoesNotExist:
         raise Http404
     return redirect(back_url)
+

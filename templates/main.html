@@ -97,6 +97,7 @@
             <li>Ckeditor</li>
             <li>Bootstrap</li>
           </div>
+          {% if username %}
           <div class="sidebar-module">
             <h4>Archives</h4>
               <ol class="list-unstyled">
@@ -107,7 +108,10 @@
                     {% endif %}
                 {% endrecursetree %}
             </ol>
-          </div><!----
+          </div>
+          {% endif %}
+          <!----
+
           <div class="sidebar-module">
             <h4>Elsewhere</h4>
             <ol class="list-unstyled">
