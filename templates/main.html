@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+{% load i18n mptt_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,6 +74,7 @@
           <div class="blog-post">
             <p>{% block notes %}{% endblock %} </p>
             <p>{% block note %}{% endblock %}</p>
+            <p>{% block article_category %}{% endblock %}</p>
           </div>
 
 
@@ -90,8 +91,13 @@
           </div>
           <div class="sidebar-module">
             <h4>Archives</h4>
-            <ol class="list-unstyled">
-             1
+              <ol class="list-unstyled">
+                {% recursetree projects %}
+                    <li><a href="/category/get/{{ node.id }}/">{{ node }}</a></li>
+                    {% if not node.is_leaf_node %}
+                        <li><a href="/category/get/{{ node.id }}/">   {{ children }}</a></li>
+                    {% endif %}
+                {% endrecursetree %}
             </ol>
           </div><!----
           <div class="sidebar-module">
