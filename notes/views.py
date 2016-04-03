@@ -25,11 +25,20 @@ def notes(request, first='-date', second='title'):
 
 
 
-def categorysort(request, first='-date', second='title'):
+def categorysort(request, first='-date'):
     args = {}
     args['username'] = auth.get_user(request).username
     print(args['username'])
     args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by('category', first)
+    args['projects'] = Category.objects.all()
+    return render_to_response('notes.html', args)
+
+
+def favorites(request, first='-date'):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    print(args['username'])
+    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by('-favorites', first)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 

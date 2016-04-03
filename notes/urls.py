@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^create/$', notes.views.note_create),
     url(r'^category/get/(?P<category_id>\d+)/$', notes.views.category, name='category'),
     url(r'^sort/category/$', notes.views.categorysort),
+    url(r'^sort/favorites/$', notes.views.favorites),
     url(r'^note/(?P<id>.+)(/del/)$', notes.views.note_del, name='del'),
     url(r'^note/(?P<id>.+)(/edit/)$', notes.views.note_edit, name='edit'),
     url(r'^note/(?P<id>.+)(/addfavorites/)$', notes.views.addfavorites, name='addfavorites'),

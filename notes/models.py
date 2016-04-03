@@ -36,8 +36,7 @@ class Notes(models.Model):
         db_table = 'Notes'
         verbose_name_plural = "Заметки"
 
-
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4().hex, editable=False)
+    id = models.CharField(primary_key=True, default=uuid.uuid1().hex, editable=False,max_length=15)
     title = models.CharField(max_length=150)
     text = RichTextField(null=True, blank=True)
     date = models.DateTimeField(default=datetime.now, blank=True)
