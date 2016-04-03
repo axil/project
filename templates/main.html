@@ -72,10 +72,13 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
+            <p>{% block create_note %}{% endblock %}</p>
+            <p>{% block note_edit %}{% endblock %}</p>
             {% if username %}
             <p>{% block notes %}{% endblock %} </p>
             <p>{% block note %}{% endblock %}</p>
             <p>{% block article_category %}{% endblock %}</p>
+
             {% else %}
             <p>{% block login %}{% endblock %} </p>
             <p>{% block register %}{% endblock %}</p>
@@ -88,6 +91,7 @@
 
           <div class="sidebar-module sidebar-module-inset">
             <h4>О заметках:</h4>
+            <li><a href="/create/">Создать заметку</a></li>
             <li>Использовался:</li>
             <li>Python 3.5</li>
             <li>Django 1.9.5</li>

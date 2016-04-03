@@ -1,8 +1,10 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 import uuid
 import mptt
+from django.utils.datetime_safe import datetime
 from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 
@@ -34,15 +36,15 @@ class Notes(models.Model):
         db_table = 'Notes'
         verbose_name_plural = "Заметки"
 
-    def __str__(self):
-        return self.title
+
     # uuID = u'' + str(uuid.uuid1().hex)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4().hex, editable=False)
-    # slug = models.SlugField(unique=True)
-    # slug = models.SlugField(unique=True)
     title = models.CharField(max_length=150)
     text = RichTextField(null=True, blank=True)
-    date = models.DateTimeField()
-    author = models.ForeignKey(User)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     favorites = models.BooleanField(default=False)
     category = TreeForeignKey(Category, blank=True, null=True)
+
+    def __str__(self):
+        return self.title

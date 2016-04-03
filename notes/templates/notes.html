@@ -6,6 +6,8 @@
 
 <div class="blog-post">
     <h2 class="blog-post-title"><a href="/{{note.id}}"> {{note.title}}</a></h2>
+    <h3><a href="/{{note.id}}/del/">УДАЛИТЬ</a></h3>
+    <h3><a href="/{{note.id}}/edit/">edit</a></h3>
     <p class="blog-post-meta">{{note.date}} by <a href="#">{{note.author.username}}</a></p>
     <P> {% autoescape off%}{{note.text}}{%endautoescape%}</P>
 </div>
