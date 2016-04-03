@@ -37,7 +37,6 @@ class Notes(models.Model):
         verbose_name_plural = "Заметки"
 
 
-    # uuID = u'' + str(uuid.uuid1().hex)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4().hex, editable=False)
     title = models.CharField(max_length=150)
     text = RichTextField(null=True, blank=True)

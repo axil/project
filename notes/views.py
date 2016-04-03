@@ -1,4 +1,5 @@
 from django.core.checks import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, render_to_response, get_object_or_404, \
     redirect
@@ -16,12 +17,21 @@ def hello(request):
 
 def notes(request, first='-date', second='title'):
     args = {}
-
     args['username'] = auth.get_user(request).username
     print(args['username'])
     args['notes'] = Notes.objects.filter(publish=True).order_by(first, second)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
+
+
+def mynotes(request, first='-date', second='title'):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    print(args['username'])
+    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by(first, second)
+    args['projects'] = Category.objects.all()
+    return render_to_response('notes.html', args)
+
 
 def note(request, id=None):
     args = {}
@@ -85,3 +95,24 @@ def note_del(request, id=None):
     instance = Notes.objects.get(id=id, author=auth.get_user(request).id)
     instance.delete()
     return redirect('/')
+
+def addfavorites(request, id=None):
+    back_url = request.META['HTTP_REFERER']
+    try:
+        note = Notes.objects.get(id=id)
+        note.favorites = True
+        note.save()
+    except ObjectDoesNotExist:
+        raise Http404
+    return redirect(back_url)
+
+
+def removefavorites(request, id=None):
+    back_url = request.META['HTTP_REFERER']
+    try:
+        note = Notes.objects.get(id=id)
+        note.favorites = False
+        note.save()
+    except ObjectDoesNotExist:
+        raise Http404
+    return redirect(back_url)
