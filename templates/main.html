@@ -42,10 +42,10 @@
         <nav class="blog-nav">
           <a class="blog-nav-item active" href="/">Главная</a>
             {% if not username %}
-          <a class="blog-nav-item" href="/auth/register/">Регистрация</a>
-          <a class="blog-nav-item" href="/auth/login/">Вход</a>
+          <a class="blog-nav-item" href="{% url 'register' %}">Регистрация</a>
+          <a class="blog-nav-item" href="{% url 'login' %}">Вход</a>
             {% else %}
-          <a class="blog-nav-item" href="/auth/logout/">Выход</a>
+          <a class="blog-nav-item" href="{% url 'logout' %}">Выход</a>
             {% endif %}
           <!--<form action="/search/" class="navbar-form navbar-right" role="search">-->
               <!--<div class="form-group">-->
@@ -89,8 +89,6 @@
             <h4>О заметках:</h4>
             <li><a href="/mynotes/">Все мои заметки</a></li>
             <li><a href="/create/">Создать заметку</a></li>
-            <li><a href="/sort/category/">Сорировка по Категориям</a></li>
-            <li><a href="/sort/favorites/">Сорировка по Избраным</a></li>
             <li><a href="/sort/category/">Сорировка по Категориям</a></li>
             <li><a href="/sort/favorites/">Сорировка по Избраным</a></li>
 
