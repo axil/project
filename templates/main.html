@@ -72,11 +72,14 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
+            {% if username %}
             <p>{% block notes %}{% endblock %} </p>
             <p>{% block note %}{% endblock %}</p>
             <p>{% block article_category %}{% endblock %}</p>
+            {% else %}
             <p>{% block login %}{% endblock %} </p>
             <p>{% block register %}{% endblock %}</p>
+            {% endif %}
           </div>
 
 
