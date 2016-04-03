@@ -11,4 +11,5 @@ class NoteForm(forms.ModelForm):
             "title",
             "text",
             "category",
+            "publish",
         ]

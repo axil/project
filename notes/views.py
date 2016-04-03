@@ -14,18 +14,18 @@ def hello(request):
     return render_to_response('notes.html', args)
 
 
-def notes(request):
+def notes(request, first='-date', second='title'):
     args = {}
 
     args['username'] = auth.get_user(request).username
     print(args['username'])
-    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id)
+    args['notes'] = Notes.objects.filter(publish=True).order_by(first, second)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 
 def note(request, id=None):
     args = {}
-    args['note'] = Notes.objects.get(id=id, author=auth.get_user(request).id)
+    args['note'] = Notes.objects.get(id=id)#, author=auth.get_user(request).id)
     args['username'] = auth.get_user(request).username
     args['projects'] = Category.objects.all()
     return render_to_response('note.html', args)
@@ -35,7 +35,7 @@ def category(request, category_id=1):
     args = {}
     args['projects'] = Category.objects.all()
     args['category'] = Category.objects.get(id=category_id)
-    args['notes'] = Notes.objects.filter(category=category_id, author=auth.get_user(request).id)
+    args['notes'] = Notes.objects.filter(category=category_id, publish=True)
     args['username'] = auth.get_user(request).username
     # branch_categories = args['category'].get_descendants(include_self=True)
     # args['category_articles'] = Notes.objects.filter(category__in=branch_categories).distinct()

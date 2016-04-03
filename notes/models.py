@@ -45,6 +45,7 @@ class Notes(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     favorites = models.BooleanField(default=False)
     category = TreeForeignKey(Category, blank=True, null=True)
+    publish = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
