@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'notes',
     'ckeditor',
     'mptt',
+    'loginsys',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -61,6 +62,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR + '/templates'),
             os.path.join(BASE_DIR + 'notes/templates'),
+            os.path.join(BASE_DIR + 'loginsys/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
