@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^note/(?P<id>.+)(/edit/)$', notes.views.note_edit, name='edit'),
     url(r'^note/(?P<id>.+)(/addfavorites/)$', notes.views.addfavorites, name='addfavorites'),
     url(r'^note/(?P<id>.+)(/removefavorites/)$', notes.views.removefavorites, name='removefavorites'),
-    url(r'^note/(?P<id>.+)$', notes.views.note, name='notes'),
+    url(r'^note/(?P<id>.+)$', notes.views.note, name='note'),
 
 ]

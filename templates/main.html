@@ -63,7 +63,7 @@
       <div class="blog-header">
 
         <h1 class="blog-title">Менеджер заметок</h1>
-        <p class="lead blog-description"> 1</p>
+        <p class="lead blog-description"> </p>
       </div>
 
 
@@ -86,12 +86,13 @@
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 
           <div class="sidebar-module sidebar-module-inset">
+            {% if username %}
             <h4>О заметках:</h4>
             <li><a href="/mynotes/">Все мои заметки</a></li>
             <li><a href="/create/">Создать заметку</a></li>
             <li><a href="/sort/category/">Сорировка по Категориям</a></li>
             <li><a href="/sort/favorites/">Сорировка по Избраным</a></li>
-
+            {% endif %}
             <li>Использовался:</li>
             <li>Python 3.5</li>
             <li>Django 1.9.5</li>

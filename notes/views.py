@@ -73,6 +73,7 @@ def note_create(request):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
     args = {}
+    args['username'] = auth.get_user(request).username
     args.update(csrf(request))
     args['projects'] = Category.objects.all()
     args['form'] = NoteForm()
@@ -88,6 +89,8 @@ def note_create(request):
     return render_to_response('create.html', args)
 
 def note_edit(request, id=None):
+    args = {}
+    args['username'] = auth.get_user(request).username
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
     instance = Notes.objects.get(id=id, author=auth.get_user(request).id)
@@ -96,13 +99,11 @@ def note_edit(request, id=None):
         instance = form.save(commit=False)
         instance.save()
         return redirect('/')
-    context = {
-		"title": instance.title,
-		"instance": instance,
-		"form":form,
-	}
-    context['projects'] = Category.objects.all()
-    return render(request, "note_edit.html", context)
+    args['title'] = instance.title
+    args['instance'] = instance
+    args['form'] = form
+    args['projects'] = Category.objects.all()
+    return render(request, "note_edit.html", args)
     # return HttpResponse(id[:-1])
 
 
