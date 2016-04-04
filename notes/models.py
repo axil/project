@@ -31,12 +31,17 @@ class Category(MPTTModel):
 mptt.register(Category, order_insertion_by=['name'])
 
 
+def my_uuid():
+    while True:
+        yield uuid.uuid1().hex
+
 class Notes(models.Model):
     class Meta:
         db_table = 'Notes'
         verbose_name_plural = "Заметки"
-
-    id = models.CharField(primary_key=True, default=uuid.uuid1().hex, editable=False,max_length=15)
+    # models.UUIDField(primary_key=True, default=my_uuid(), editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=150)
     text = RichTextField(null=True, blank=True)
     date = models.DateTimeField(default=datetime.now, blank=True)
