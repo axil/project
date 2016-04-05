@@ -1,8 +1,7 @@
-from django.core.checks import messages
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, render_to_response, get_object_or_404, \
-    redirect
+from django.shortcuts import render, render_to_response, redirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 
@@ -18,18 +17,16 @@ def hello(request):
 def notes(request, first='-date', second='title'):
     args = {}
     args['username'] = auth.get_user(request).username
-    print(args['username'])
     args['notes'] = Notes.objects.filter(publish=True).order_by(first, second)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 
 
-
 def categorysort(request, first='-date'):
     args = {}
     args['username'] = auth.get_user(request).username
-    print(args['username'])
-    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by('category', first)
+    args['notes'] = Notes.objects.filter(
+        author=auth.get_user(request).id).order_by('category', first)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 
@@ -37,23 +34,42 @@ def categorysort(request, first='-date'):
 def favorites(request, first='-date'):
     args = {}
     args['username'] = auth.get_user(request).username
-    print(args['username'])
-    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by('-favorites', first)
+    args['notes'] = Notes.objects.filter(
+        author=auth.get_user(request).id).order_by('-favorites', first)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
+
+def filter_favorites(request, first='-date'):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    args['notes'] = Notes.objects.filter(favorites=True,
+        author=auth.get_user(request).id).order_by(first)
+    args['projects'] = Category.objects.all()
+    return render_to_response('notes.html', args)
+
+def filter_week(request):
+    last_week = datetime.datetime.today() - datetime.timedelta(7)
+    args = {}
+    args['username'] = auth.get_user(request).username
+    args['notes'] = Notes.objects.filter(
+        date__range=(last_week, datetime.datetime.today()),
+        author=auth.get_user(request).id).order_by('-date')
+    args['projects'] = Category.objects.all()
+    return render_to_response('notes.html', args)
+
 
 def mynotes(request, first='-date', second='title'):
     args = {}
     args['username'] = auth.get_user(request).username
-    print(args['username'])
-    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id).order_by(first, second)
+    args['notes'] = Notes.objects.filter(author=auth.get_user(request).id)\
+        .order_by(first, second)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 
 
 def note(request, id=None):
     args = {}
-    args['note'] = Notes.objects.get(id=id)#, author=auth.get_user(request).id)
+    args['note'] = Notes.objects.get(id=id)
     args['username'] = auth.get_user(request).username
     args['projects'] = Category.objects.all()
     return render_to_response('note.html', args)
@@ -63,10 +79,9 @@ def category(request, category_id=1):
     args = {}
     args['projects'] = Category.objects.all()
     args['category'] = Category.objects.get(id=category_id)
-    args['notes'] = Notes.objects.filter(category=category_id)
+    args['notes'] = Notes.objects.filter(category=category_id,
+                                         author=auth.get_user(request).id)
     args['username'] = auth.get_user(request).username
-    # branch_categories = args['category'].get_descendants(include_self=True)
-    # args['category_articles'] = Notes.objects.filter(category__in=branch_categories).distinct()
     return render_to_response('category.html', args)
 
 def note_create(request):
@@ -104,8 +119,6 @@ def note_edit(request, id=None):
     args['form'] = form
     args['projects'] = Category.objects.all()
     return render(request, "note_edit.html", args)
-    # return HttpResponse(id[:-1])
-
 
 
 def note_del(request, id=None):
