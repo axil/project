@@ -12,23 +12,32 @@ def search_form(request):
 
 
 def search(request):
-    args ={}
     if 'q' in request.GET and request.GET['q']:
         q = request.GET['q']
         args = {
             'username': auth.get_user(request).username,
             'query': request.GET['q'],
             'projects': Category.objects.all(),
-            'notes': Notes.objects.filter((Q(title__icontains=q) | Q(text__icontains=q))&
-                                          (Q(publish=True) | Q(author=auth.get_user(request).id))).
-            select_related('category','author'),
+            'notes': Notes.objects.filter(
+                (Q(title__icontains=q) | Q(text__icontains=q))&
+                (Q(publish=True) | Q(author=auth.get_user(request).id))).
+                select_related('category','author'),
         }
-
-        # args['query'] = request.GET['q']
-        # args['category'] = Category.objects.all()
-        # q = request.GET['q']
-        # args['notes'] = Notes.objects.filter(title=q)
         return render_to_response('search_results.html', args)
     else:
         return HttpResponse('Please submit a search term.')
-# Q(user = None) | Q(user = User)
+
+def fillter_title(request):
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        args = {
+            'username': auth.get_user(request).username,
+            'query': request.GET['q'],
+            'projects': Category.objects.all(),
+            'notes': Notes.objects.filter(Q(title__icontains=q)&
+                (Q(publish=True) | Q(author=auth.get_user(request).id))).
+                select_related('category','author'),
+        }
+        return render_to_response('search_results.html', args)
+    else:
+        return HttpResponse('Please submit a search term.')
