@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block notes_all_templates %}
+<p>{% block create_note %}{% endblock %}</p>
+<p>{% block note_edit %}{% endblock %}</p>
+<p>{% block notes %}{% endblock %} </p>
+<p>{% block note %}{% endblock %}</p>
+<p>{% block article_category %}{% endblock %}</p>
+{% endblock %}

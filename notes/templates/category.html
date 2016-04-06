@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'all_notes.html' %}
 {% load staticfiles %}
 {% load i18n mptt_tags %}
 
@@ -8,7 +8,7 @@
 {% for note in notes %}<article>
     <h3><a href="/note/{{note.id}}">{{ note.title }}</a></h3>
 
-    <h6>Written by <a href="#">{{note.author.username}}</a> {{ note.date }}</h6>
+    <h6>Written by {{note.author.username}} {{ note.date }}</h6>
 {% endfor %}
 
 {%  endblock %}

@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'all_notes.html' %}
 {% load staticfiles %}
 {% block notes %}
 
@@ -17,8 +17,8 @@
     {% endif %}
 
     </h2>
-    <p class="blog-post-meta">{{note.date}} by <a href="#">{{note.author.username}}</a>
-    Категория: <a href="#">{{note.category}}</a></p></p>
+    <p class="blog-post-meta">{{note.date}} by {{note.author.username}}
+    Категория: {{note.category}}</p>
     <P> {% autoescape off%}{{note.text}}{%endautoescape%}</P>
     {% if note.publish %}
     url : htt://localhost:8000/note/{{note.id}}
