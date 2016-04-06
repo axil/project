@@ -3,6 +3,7 @@ import notes.views
 
 urlpatterns = [
     url(r'^$', notes.views.notes),
+    url(r'^test/(?P<name>\w+)$', notes.views.test),
     url(r'^mynotes/', notes.views.mynotes),
     url(r'^create/$', notes.views.note_create),
     url(r'^category/get/(?P<category_id>\d+)/$', notes.views.category, name='category'),

@@ -11,11 +11,16 @@ from django.template.context_processors import csrf
 
 from notes.models import Notes, Category
 from notes.forms import NoteForm
-
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-def hello(request):
-    args = {}
-    return render_to_response('notes.html', args)
+@csrf_exempt
+def test(request, name='Alexey'):
+    if request.is_ajax():
+
+        message = "Hello " + name
+    else:
+        message = "Hello" +name
+    return HttpResponse(message)
 
 
 def notes(request, first='-date', second='title'):
@@ -33,7 +38,7 @@ def categorysort(request, first='-date'):
         author=auth.get_user(request).id).order_by('category', first)
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
-
+@csrf_exempt
 def sort_ajax(request, first='category'):
     args = {}
     args['username'] = auth.get_user(request).username

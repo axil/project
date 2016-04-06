@@ -33,13 +33,26 @@
       <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <![endif]-->
       <script>
-        function get_category(){
+        function get_category() {
+
+//            $.post("/test/Alexey", {name:"alex"}, function(data) {
+//                    alert(data);
+//            });
+//        };
+
+//            $(function () {
+//                $.get("/test/", function (data) {
+//                    alert(data);
+//                });
+//            });
+
             $.post('/sort/category/ajax/', {first:"category"}, function(s){
                 $('#qqq').html(s);
                 alert('ok');
 //
             });
-            return false;
+//            return false;
+
         }
     </script>
   </head>
