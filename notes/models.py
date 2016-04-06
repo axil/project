@@ -1,12 +1,10 @@
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
-import uuid
-import mptt
 from django.utils.datetime_safe import datetime
+import mptt
 from mptt.models import MPTTModel, TreeForeignKey
-# Create your models here.
+import uuid
 
 
 class Category(MPTTModel):
@@ -31,16 +29,11 @@ class Category(MPTTModel):
 mptt.register(Category, order_insertion_by=['name'])
 
 
-def my_uuid():
-    while True:
-        yield uuid.uuid1().hex
-
 class Notes(models.Model):
     class Meta:
         db_table = 'Notes'
         verbose_name_plural = "Заметки"
-    # models.UUIDField(primary_key=True, default=my_uuid(), editable=False)
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=150)
     text = RichTextField(null=True, blank=True)

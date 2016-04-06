@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'mptt',
     'loginsys',
-    'debug_toolbar',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -79,7 +79,6 @@ TEMPLATES = [
     },
 ]
 
-INTERNAL_IPS = '127.0.0.1',
 WSGI_APPLICATION = 'project.wsgi.application'
 
 

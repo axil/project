@@ -13,6 +13,5 @@ class CategoryAdmin(admin.ModelAdmin):
     fields = ['name']
 
 
-
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Notes, Notes_Admin)

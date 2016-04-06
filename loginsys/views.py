@@ -1,7 +1,6 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.contrib import auth
 from django.template.context_processors import csrf
-from django.contrib.auth.forms import UserCreationForm
 from notes.models import Notes, Category
 from loginsys.forms import RegistrationForm
 
@@ -9,7 +8,6 @@ from loginsys.forms import RegistrationForm
 def login(request):
     args = {}
     args.update(csrf(request))
-
     args['projects'] = Category.objects.all()
     if request.POST:
         username = request.POST.get('username', '')
@@ -33,10 +31,11 @@ def logout(request):
 
 
 def register(request):
-    args = {}
-    args['projects'] = Category.objects.all()
+    args = {
+        'projects': Category.objects.all(),
+        'form': RegistrationForm(),
+    }
     args.update(csrf(request))
-    args['form'] = RegistrationForm()
     if request.POST:
         newuser_form = RegistrationForm(request.POST)
         if newuser_form.is_valid():

@@ -3,14 +3,14 @@ import notes.views
 
 urlpatterns = [
     url(r'^$', notes.views.notes),
-    url(r'^test/(?P<name>\w+)$', notes.views.test),
-    url(r'^mynotes/', notes.views.mynotes),
-    url(r'^create/$', notes.views.note_create),
+    url(r'^mynotes/$', notes.views.my_notes, name='my_notes'),
+    url(r'^sort/ajax/$', notes.views.my_notes, name='ajax_sort'),
+    url(r'^create/$', notes.views.note_create, name='create'),
     url(r'^category/get/(?P<category_id>\d+)/$', notes.views.category, name='category'),
-    url(r'^sort/category/$', notes.views.categorysort),
-    url(r'^sort/category/ajax/$', notes.views.sort_ajax),
-    url(r'^sort/favorites/$', notes.views.favorites),
-    url(r'^filter/week/$', notes.views.filter_week),
+    # url(r'^sort/category/$', notes.views.categorysort),
+
+    # url(r'^sort/favorites/$', notes.views.favorites),
+    url(r'^filter/date/$', notes.views.filter_date),
     url(r'^filter/favorites/$', notes.views.filter_favorites),
     url(r'^note/(?P<id>.+)(/del/)$', notes.views.note_del, name='del'),
     url(r'^note/(?P<id>.+)(/edit/)$', notes.views.note_edit, name='edit'),
