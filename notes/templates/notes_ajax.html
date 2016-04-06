@@ -1,0 +1,27 @@
+
+{% load staticfiles %}
+
+{% for note in notes %}
+
+<div class="blog-post">
+    <h2 class="blog-post-title"><a href="/note/{{note.id}}"> {{note.title}}</a>
+    {% if username = note.author.username %}
+    <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>
+    <a href="/note/{{note.id}}/edit/"><img src="{% static 'img/edit.png' %} "  width="30" height="30"/></a>
+    {% if not note.favorites %}
+        <a href="/note/{{note.id}}/addfavorites/"><img src="{% static 'img/favotites.png' %} "  width="30" height="30"/></a>
+    {% else %}
+        <a href="/note/{{note.id}}/removefavorites/"><img src="{% static 'img/favoritesremove.png' %} "  width="30" height="30"/></a>
+    {% endif %}
+    {% endif %}
+
+    </h2>
+    <p class="blog-post-meta">{{note.date}} by <a href="#">{{note.author.username}}</a>
+    Категория: <a href="#">{{note.category}}</a></p></p>
+    <P> {% autoescape off%}{{note.text}}{%endautoescape%}</P>
+    {% if note.publish %}
+    url : htt://localhost:8000/note/{{note.id}}
+    {% endif %}
+</div>
+{% endfor %}
+

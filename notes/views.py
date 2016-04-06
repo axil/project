@@ -1,4 +1,8 @@
 import datetime
+import json
+from django.template import Context, RequestContext
+from django.template.loader import  get_template
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, render_to_response, redirect
@@ -30,6 +34,19 @@ def categorysort(request, first='-date'):
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 
+def sort_ajax(request, first='category'):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    args['notes'] = Notes.objects.filter(
+        author=auth.get_user(request).id).order_by(first, '-date')
+    args['projects'] = Category.objects.all()
+    # import ipdb; ipdb.set_trace()
+
+    t = get_template('notes_ajax.html')
+    s = t.render(RequestContext(request,args))
+    # import ipdb; ipdb.set_trace()
+
+    return HttpResponse(s)
 
 def favorites(request, first='-date'):
     args = {}
@@ -62,7 +79,7 @@ def mynotes(request, first='-date', second='title'):
     args = {}
     args['username'] = auth.get_user(request).username
     args['notes'] = Notes.objects.filter(author=auth.get_user(request).id)\
-        .order_by(first, second)
+        .order_by(first, second).select_related('category','author')
     args['projects'] = Category.objects.all()
     return render_to_response('notes.html', args)
 

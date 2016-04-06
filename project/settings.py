@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'mptt',
     'loginsys',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,6 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -67,6 +69,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # 'django.template.context_processors.debug',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -76,6 +79,7 @@ TEMPLATES = [
     },
 ]
 
+INTERNAL_IPS = '127.0.0.1',
 WSGI_APPLICATION = 'project.wsgi.application'
 
 
