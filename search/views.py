@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.db.models import Q
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 
@@ -18,7 +19,8 @@ def search(request):
             'username': auth.get_user(request).username,
             'query': request.GET['q'],
             'projects': Category.objects.all(),
-            'notes': Notes.objects.filter(title__icontains=q).
+            'notes': Notes.objects.filter((Q(title__icontains=q) | Q(text__icontains=q))&
+                                          (Q(publish=True) | Q(author=auth.get_user(request).id))).
             select_related('category','author'),
         }
 
@@ -29,3 +31,4 @@ def search(request):
         return render_to_response('search_results.html', args)
     else:
         return HttpResponse('Please submit a search term.')
+# Q(user = None) | Q(user = User)
