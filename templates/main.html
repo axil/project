@@ -91,6 +91,12 @@
             {% else %}
           <a class="blog-nav-item" href="{% url 'logout' %}">Выход</a>
             {% endif %}
+            <form action="/search/" class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" method="get"name="q">
+              </div>
+              <button type="submit" class="btn btn-default">Go</button>
+          </form>
         </nav>
 
       </div>
@@ -112,7 +118,9 @@
           <div class="blog-post">
             <div id="main_clean">{% block notes_all_templates %}{% endblock %}</div>
             <p id="main_notes"></p>
-              <div id="main_clean">{% block all_loginsys %}{% endblock %}</div>
+            <div id="main_clean">{% block all_loginsys %}{% endblock %}</div>
+             <div id="main_clean"> <p>{% block search_result %}{% endblock %}</p>
+            <p>{% block search_form %}{% endblock %}</p></div>
 
 
           </div>

@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block search_result %}
+    <p>You searched for: <strong>{{ query }}</strong></p>
+    {% if notes %}
+        {% for note in notes %}
+            <div class="blog-post">
+                <h2 class="blog-post-title"><a href="/note/{{note.id}}"> {{note.title}}</a></h2>
+                <p class="blog-post-meta">{{note.date}} by {{note.author.username}}</p>
+                <P> {% autoescape off%}{{artnoteicle.text}}{%endautoescape%}</P>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No title matched your search.</p>
+    {% endif %}
+{% endblock %}

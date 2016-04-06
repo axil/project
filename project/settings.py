@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'mptt',
     'loginsys',
-    # 'debug_toolbar',
+    'search',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
