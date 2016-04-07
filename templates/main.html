@@ -139,12 +139,11 @@
             <li><a href="#" onclick="return filter_week()">Заметки за неделю</a></li>
             <li><a href="#" onclick="return filter_month()">Заметки за месяц</a></li>
             <li><a href="#" onclick="return filter_favorites()">Избранные</a></li>
-            <li><a href="{% url 'filter_title' %}">Фильтр по загаловку</a></li>
+            <li><a href="{% url 'filter_title' %}">Фильтр по заголовку</a></li>
             {% endif %}
               <form action="/search/fillter_title/" method="get">
+                <input type="submit" value="filter">
                 <input type="text" name="q" placeholder="filter title">
-                  </br>
-                <input type="submit" value="Search">
             </form>
             <li>Использовался:</li>
             <li>Python 3.5</li>
