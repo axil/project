@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block notes %}
+
+<form action="/" method="post">{% csrf_token %}
+    <p>Заметка успешно удалена</p>
+    <input type='submit' class='btn btn-default' value='Ok' />
+</form>
+{% endblock %}

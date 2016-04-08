@@ -3,7 +3,7 @@ import search.views
 
 
 urlpatterns = [
-    url(r'^search-form/$', search.views.search_form, name='filter_title'),
-    url(r'^fillter_title/$', search.views.fillter_title),                               # todo лишняя l
-    url(r'^$', search.views.search),
+    url(r'^search-form/$', search.views.search_form, name='form_filter_title'),
+    url(r'^filter_title/$', search.views.filter_title, name='filter_title'),
+    url(r'^$', search.views.search, name='search'),
 ]

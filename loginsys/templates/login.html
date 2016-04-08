@@ -1,7 +1,7 @@
-{% extends 'all_loginsys.html' %}
+{% extends 'main.html' %}
 {% load staticfiles %}
-{% block login %}
-<form action="/auth/login/" method="post">
+{% block loginsys %}
+<form action="{% url 'login'%}" method="post">
     {% csrf_token %}
     <label for="username">Имя пользователя</label> <br/>
     <input type="text" name="username" id="username" placeholder="login"><br/>
@@ -11,6 +11,6 @@
         <label class="errors"> {{login_error}}</label>
     {% endif %}<br/>
     <button type="submit" class="btn btn-default">Войти</button>
-    <button type="submit" class="btn btn-default"><a href="/auth/register/">Регистрация</a></button>
+    <button type="submit" class="btn btn-default"><a href="{% url 'register'%}">Регистрация</a></button>
 </form>
 {% endblock %}

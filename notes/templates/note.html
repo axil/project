@@ -1,10 +1,10 @@
-{% extends 'all_notes.html' %}
+{% extends 'main.html' %}
 {% load staticfiles %}
-{% block note %}
+{% block notes %}
 
 <div class="blog-post">
-    <h2 class="blog-post-title"> {{note.title}}
-        {% if username = note.author.username %}
+    <h2 class="blog-post-title"> {{ note.title }}
+        {% if username == note.author.username %}
     <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>
     <a href="/note/{{note.id}}/edit/"><img src="{% static 'img/edit.png' %} "  width="30" height="30"/></a>
     {% if not note.favorites %}
@@ -14,11 +14,11 @@
     {% endif %}
         {% endif %}
         </h2>
-    <p class="blog-post-meta">{{note.date}} by {{note.author.username}} Категория: {{note.category}}</p></p>
-    <P> {% autoescape off%}{{note.text}}{%endautoescape%}</P>
+    <p class="blog-post-meta">{{ note.date }} by {{ note.author.username }} Категория: {{ note.category }}</p></p>
+    <P>{{note.text | safe}}</P>
     {% if note.publish %}
-    url : htt://localhost:8000/note/{{note.id}}
+    url : htt://localhost:8000/note/{{ note.id }}
     {% endif %}
-</div><!-- /.blog-post -->  {# todo: комментарии лучше оформлять через скобка-решетка, чтобы их было не видно юзеру #}
+</div>  {# todo: комментарии лучше оформлять через скобка-решетка, чтобы их было не видно юзеру #}
 
 {% endblock %}

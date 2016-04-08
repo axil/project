@@ -3,7 +3,7 @@ from notes.models import Notes, Category
 
 
 class Notes_Admin(admin.ModelAdmin):
-    fields = ['title', 'text', 'author', 'date', 'favorites', 'category','publish']
+    fields = ['title', 'text', 'author', 'date', 'favorites', 'category', 'publish']
     list_display = ['title', 'date']
     list_filter = ['title']
     search_fields = ['title']

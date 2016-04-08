@@ -11,14 +11,18 @@
 
     <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
     <link href="{% static 'css/blog.css'%}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script></body>			{# todo: должно быть в head #}
     <script>
+        function main_notes(s){
+            $('#main_clean').empty();
+            $('#main_notes').html(s);
+        }
         function my_notes() {
           $.post('/mynotes/', {
               first:"-date",
               second:"title",
               }, function(s){
-                $('#main_clean').empty();
-                $('#main_notes').html(s);
+                main_notes(s);
             });
             return false;
         }
@@ -27,8 +31,7 @@
               first:"category",
               second:"title",
               }, function(s){
-                $('#main_clean').empty();
-                $('#main_notes').html(s);
+                main_notes(s);
             });
             return false;
         }
@@ -37,8 +40,7 @@
               first:"-favorites",
               second:"-date",
               }, function(s){
-                $('#main_clean').empty();
-                $('#main_notes').html(s);
+                main_notes(s);
             });
             return false;
         }
@@ -47,8 +49,7 @@
               date: "7",
               }, function(s){
 //              alert(s)
-                $('#main_clean').empty();
-                $('#main_notes').html(s);
+                main_notes(s);
             });
             return false;
         }
@@ -57,16 +58,16 @@
               date: "31",
               }, function(s){
 //              alert(s)
-                $('#main_clean').empty();
-                $('#main_notes').html(s);
+               main_notes(s);
             });
             return false;
         }
         function filter_favorites() {
           $.get('/filter/favorites/', function(s){
 //              alert(s)
-                $('#main_clean').empty();		// todo: выделить повторяющиеся две строчки
-                $('#main_notes').html(s);       // в именованную функцию
+              main_notes(s);
+//                $('#main_clean').empty();		// todo: выделить повторяющиеся две строчки
+//                $('#main_notes').html(s);       // в именованную функцию
             });
             return false;
         }
@@ -85,7 +86,7 @@
             {% else %}
           <a class="blog-nav-item" href="{% url 'logout' %}">Выход</a>
             {% endif %}
-            <form action="/search/" class="navbar-form navbar-right" role="search">
+            <form action="{% url 'search' %}" class="navbar-form navbar-right" role="search">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" method="get"name="q">
               </div>
@@ -110,13 +111,10 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <div id="main_clean">{% block notes_all_templates %}{% endblock %}</div>
+            <div id="main_clean">{% block notes %}{% endblock %}</div>
             <p id="main_notes"></p>
-            <div id="main_clean">{% block all_loginsys %}{% endblock %}</div>
-             <div id="main_clean"> <p>{% block search_result %}{% endblock %}</p>
-            <p>{% block search_form %}{% endblock %}</p></div>
-
-
+            <div id="main_clean">{% block loginsys %}{% endblock %}</div>
+            <div id="main_clean"> <p>{% block search %}{% endblock %}</p></div>
           </div>
 
 
@@ -126,16 +124,16 @@
           <div class="sidebar-module sidebar-module-inset">
             {% if username %}
             <h4>О заметках:</h4>
-            <li><a href="/create/">Создать заметку</a></li>      {# todo: использовать {% url <...> %} #}
+            <li><a href="{% url 'create' %}">Создать заметку</a></li>      {# todo: использовать {% url <...> %} #}
             <li><a href="#" onclick="return my_notes()">Все мои заметки</a></li>
             <li><a href="#" onclick="return sort_notes_category()">Сорировка по Категориям</a></li>
             <li><a href="#" onclick="return sort_notes_favorites()">Сорировка по Избраным</a></li>
             <li><a href="#" onclick="return filter_week()">Заметки за неделю</a></li>
             <li><a href="#" onclick="return filter_month()">Заметки за месяц</a></li>
             <li><a href="#" onclick="return filter_favorites()">Избранные</a></li>
-            <li><a href="{% url 'filter_title' %}">Фильтр по заголовку</a></li>
+            <li><a href="{% url 'form_filter_title' %}">Фильтр по заголовку</a></li>
             {% endif %}
-              <form action="/search/fillter_title/" method="get">
+              <form action="{% url 'filter_title'%}" method="get">
                 <input type="submit" value="filter">
                 <input type="text" name="q" placeholder="filter title">
             </form>
@@ -149,7 +147,7 @@
           <div class="sidebar-module">
             <h4>Archives</h4>
               <ol class="list-unstyled">
-                {% recursetree projects %}
+                {% recursetree category_all %}
                     <li><a href="/category/get/{{ node.id }}/">{{ node }}</a></li>
                     {% if not node.is_leaf_node %}
                         <li><a href="/category/get/{{ node.id }}/">   {{ children }}</a></li>
@@ -170,5 +168,5 @@
         <a href="#">Back to top</a>
       </p>
     </footer>
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script></body>			{# todo: должно быть в head #}
+
 </html>

@@ -1,14 +1,11 @@
-{% extends 'all_notes.html' %}
+{% extends 'main.html' %}
 {% load staticfiles %}
 {% load i18n mptt_tags %}
-
-{% block article_category %}
+{% block notes %}
 
 <ul class="right"><h4> Категория: {{ category }}</h4></ul>
 {% for note in notes %}<article>
     <h3><a href="/note/{{note.id}}">{{ note.title }}</a></h3>
-
     <h6>Written by {{note.author.username}} {{ note.date }}</h6>
 {% endfor %}
-
 {%  endblock %}

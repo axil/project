@@ -8,7 +8,7 @@ from loginsys.forms import RegistrationForm
 def login(request):
     args = {}
     args.update(csrf(request))
-    args['projects'] = Category.objects.all()
+    args['category_all'] = Category.objects.all()
     if request.POST:
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -22,7 +22,6 @@ def login(request):
 
     else:
         return render_to_response('login.html', args)
-    return redirect('/')
 
 
 def logout(request):
@@ -32,7 +31,7 @@ def logout(request):
 
 def register(request):
     args = {
-        'projects': Category.objects.all(),
+        'category_all': Category.objects.all(),
         'form': RegistrationForm(),
     }
     args.update(csrf(request))

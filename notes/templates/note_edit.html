@@ -1,12 +1,12 @@
-{% extends 'all_notes.html' %}
-
-
-{% block note_edit %}
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block notes %}
 <div class='col-sm-6 col-sm-offset-3'>
 <h1>Form</h1>
 
-<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-{% autoescape off%}{{ form.as_p }}{%endautoescape%}
+<form method='POST' action='' enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{ form.as_p }}
 <input type='submit' class='btn btn-default' value='Edit Post' />
 </form>
 
