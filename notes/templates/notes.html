@@ -6,22 +6,23 @@
 
 <div class="blog-post">
     <h2 class="blog-post-title"><a href="/note/{{note.id}}"> {{note.title}}</a>
-    {% if username = note.author.username %}
-    <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>
+    {% if username = note.author.username %}      {# todo должно быть == #}
+    <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>   
+	{# здесь и ниже можно вынести повторяющиеся width и height в .css файл #}
     <a href="/note/{{note.id}}/edit/"><img src="{% static 'img/edit.png' %} "  width="30" height="30"/></a>
     {% if not note.favorites %}
         <a href="/note/{{note.id}}/addfavorites/"><img src="{% static 'img/favotites.png' %} "  width="30" height="30"/></a>
     {% else %}
-        <a href="/note/{{note.id}}/removefavorites/"><img src="{% static 'img/favoritesremove.png' %} "  width="30" height="30"/></a>
+        <a href="/note/{{note.id}}/removefavorites/"><img src="{% static 'img/favoritesremove.png' %} "  width="30" height="30"/></a>          {# todo переделайте здесь и выше с использованием {% url %} #}
     {% endif %}
     {% endif %}
 
     </h2>
-    <p class="blog-post-meta">{{note.date}} by {{note.author.username}}
+    <p class="blog-post-meta">{{note.date}} by {{note.author.username}}   {# todo обычно пробелы ставятся: {{ note.date }} #}
     Категория: {{note.category}}</p>
     <P> {% autoescape off%}{{note.text}}{%endautoescape%}</P>
     {% if note.publish %}
-    url : htt://localhost:8000/note/{{note.id}}
+    url : htt://localhost:8000/note/{{note.id}}			{# todo сделайте кликабельной ссылкой, уберите абс.url #}
     {% endif %}
 </div>
 {% endfor %}
