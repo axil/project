@@ -82,7 +82,7 @@ def category(request, category_id=1):
         'projects': Category.objects.all(),
         'category': Category.objects.get(id=category_id),
         'notes': Notes.objects.filter(category=category_id,
-                                      author=auth.get_user(request).id),
+                                      author=auth.get_user(request).id).select_related('category','author'),
         'username': auth.get_user(request).username,
     }
     return render_to_response('category.html', args)

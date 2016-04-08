@@ -12,7 +12,6 @@
     <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
     <link href="{% static 'css/blog.css'%}" rel="stylesheet">
     <script>
-
         function my_notes() {
           $.post('/mynotes/', {
               first:"-date",
@@ -23,7 +22,6 @@
             });
             return false;
         }
-
         function sort_notes_category() {
           $.post('/sort/ajax/', {
               first:"category",
@@ -34,7 +32,6 @@
             });
             return false;
         }
-
         function sort_notes_favorites() {
           $.post('/sort/ajax/', {
               first:"-favorites",
@@ -73,9 +70,6 @@
             });
             return false;
         }
-
-
-
     </script>
   </head>
 
