@@ -12,7 +12,7 @@ urlpatterns = [
     # url(r'^sort/favorites/$', notes.views.favorites),
     url(r'^filter/date/$', notes.views.filter_date),
     url(r'^filter/favorites/$', notes.views.filter_favorites),
-    url(r'^note/(?P<id>.+)(/del/)$', notes.views.note_del, name='del'),
+    url(r'^note/(?P<id>.+)(/del/)$', notes.views.note_del, name='del'),  # todo: если id у вас всегда число, то лучше "\d+)"
     url(r'^note/(?P<id>.+)(/edit/)$', notes.views.note_edit, name='edit'),
     url(r'^note/(?P<id>.+)(/addfavorites/)$', notes.views.addfavorites, name='addfavorites'),
     url(r'^note/(?P<id>.+)(/removefavorites/)$', notes.views.removefavorites, name='removefavorites'),

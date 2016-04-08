@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% load staticfiles %}
 {% block search_form %}
-<form action="/search/fillter_title/" method="get">
+<form action="/search/fillter_title/" method="get">			{# todo используйте {% url %} #}
         <input type="text" name="q">
         <input type="submit" value="Search">
 </form>

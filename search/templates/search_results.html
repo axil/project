@@ -7,7 +7,8 @@
             <div class="blog-post">
                 <h2 class="blog-post-title"><a href="/note/{{note.id}}"> {{note.title}}</a></h2>
                 <p class="blog-post-meta">{{note.date}} by {{note.author.username}}</p>
-                <P> {% autoescape off%}{{artnoteicle.text}}{%endautoescape%}</P>
+                <P> {% autoescape off%}{{artnoteicle.text}}{%endautoescape%}</P>    
+				{# todo лучше, если один всего элемент без экранирования, использовать |safe #}
             </div>
         {% endfor %}
     {% else %}
