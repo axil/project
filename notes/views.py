@@ -83,7 +83,7 @@ def category(request, category_id=1):
 
 
 def note_create(request):
-    if not request.user.is_staff and request.user.is_superuser:   # todo должно быть and
+    if not request.user.is_staff and not request.user.is_superuser:   # todo должно быть and
         raise Http404
     args = {
         'username':  auth.get_user(request).username,
@@ -94,8 +94,7 @@ def note_create(request):
     if request.POST:
         new_form = NoteForm(request.POST)
         if new_form.is_valid():
-            instance = new_form.save()     # todo commit=False обязателен если дальше будет save_m2m()
-            instance.save()                            # если его нет, лучше в одну строчку с commit=True
+            new_form.save()
             return redirect('/')
         else:
             args['form'] = new_form
@@ -103,13 +102,12 @@ def note_create(request):
 
 
 def note_edit(request, id=None):
-    if not request.user.is_staff or not request.user.is_superuser:
+    if not request.user.is_staff and not request.user.is_superuser:
         raise Http404
     instance = Notes.objects.get(id=id, author=auth.get_user(request).id)
     form = NoteForm(request.POST or None, instance=instance)
     if form.is_valid():
-        instance = form.save()
-        instance.save()
+        form.save()
         return redirect('/')
     args = {
         'username': auth.get_user(request).username,
