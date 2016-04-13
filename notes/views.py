@@ -1,4 +1,6 @@
 import datetime
+
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render, render_to_response, redirect
@@ -82,8 +84,9 @@ def category(request, category_id=1):
     return render_to_response('category.html', args)
 
 
+@login_required(login_url='/auth/login/')
 def note_create(request):
-    if not request.user.is_staff and not request.user.is_superuser:   # todo должно быть and
+    if not request.user:   # todo должно быть and
         raise Http404
     args = {
         'username':  auth.get_user(request).username,
@@ -94,15 +97,18 @@ def note_create(request):
     if request.POST:
         new_form = NoteForm(request.POST)
         if new_form.is_valid():
-            new_form.save()
+            note = new_form.save(commit=False)
+            note.author = request.user
+            note.save()
             return redirect('/')
         else:
             args['form'] = new_form
     return render_to_response('create.html', args)
 
 
+@login_required(login_url='/auth/login/')
 def note_edit(request, id=None):
-    if not request.user.is_staff and not request.user.is_superuser:
+    if not request.user:
         raise Http404
     instance = Notes.objects.get(id=id, author=auth.get_user(request).id)
     form = NoteForm(request.POST or None, instance=instance)
@@ -120,7 +126,7 @@ def note_edit(request, id=None):
 
 
 def note_del(request, id=None):
-    if not request.user.is_staff or not request.user.is_superuser:
+    if not request.user:
         raise Http404
     args = {
         object: Notes.objects.filter(id=id,
