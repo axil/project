@@ -1,20 +1,15 @@
 {% extends 'main.html' %}
 {% load staticfiles %}
 {% load i18n mptt_tags %}
-{% block notes %}
+{% block content %}
 <form method='POST' action='/create/' enctype='multipart/form-data'>
 
     {% csrf_token %}
     <p> Title: {{form.title}}</p>
-    <textarea name="text">
+        {{form.media}}
         {{form.text}}
-    </textarea>
-    <script>
-        CKEDITOR.replace('text');
-    </script>
     <p> Category : {{form.category}} </p>
     <p> Publish: {{form.publish}}</p>
     <input type='submit' class='btn btn-default' value='Save Post' /></br>
 </form>
-<div>
 {%  endblock %}

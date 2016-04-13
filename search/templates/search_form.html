@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 {% load staticfiles %}
-{% block search %}
+{% block content %}
 <form action="{% url 'filter_title'%}" method="get">
         <input type="text" name="q">
         <input type="submit" value="Search">

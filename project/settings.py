@@ -140,6 +140,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
-                'toolbar': 'None',
-               },
+        'toolbar': 'None',
+        'width': '600',
+        'height': '200',
+    },
 }
