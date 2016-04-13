@@ -18,7 +18,7 @@
     {% endif %}
 
     </h2>
-    <p class="blog-post-meta"> {{ note.date_added }} by {{ note.author.username }}   {# todo обычно пробелы ставятся: {{ note.date_modified }} #}
+    <p class="blog-post-meta"> {{ note.date_modified }} by {{ note.author.username }}   {# todo обычно пробелы ставятся: {{ note.date_modified }} #}
     Категория: {{note.category}}</p>
     <P> {{note.text | safe}}</P>
     {% if note.publish %}

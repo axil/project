@@ -17,8 +17,8 @@
             $('#main_notes').html(s);
         }
         function my_notes() {
-          $.post({%url 'my_notes'%}, {
-              first:"-date",
+          $.post({% url 'my_notes' %}, {
+              first:"-date_modified",
               second:"title",
               }, function(s){
                 main_notes(s);
@@ -26,7 +26,7 @@
             return false;
         }
         function sort_notes_category() {
-          $.post('/sort/ajax/', {
+          $.post({% url 'ajax_sort' %}, {
               first:"category",
               second:"title",
               }, function(s){
@@ -35,16 +35,16 @@
             return false;
         }
         function sort_notes_favorites() {
-          $.post('/sort/ajax/', {
+          $.post({% url 'ajax_sort' %}, {
               first:"-favorites",
-              second:"-date",
+              second:"-date_modified",
               }, function(s){
                 main_notes(s);
             });
             return false;
         }
         function filter_week() {
-          $.post('/filter/date/', {
+          $.post({% url 'filter_date' %}, {
               date: "7",
               }, function(s){
 //              alert(s)
@@ -53,7 +53,7 @@
             return false;
         }
         function filter_month() {
-          $.post('/filter/date/', {
+          $.post({% url 'filter_date' %}, {
               date: "31",
               }, function(s){
 //              alert(s)
@@ -62,7 +62,7 @@
             return false;
         }
         function filter_favorites() {
-          $.get('/filter/favorites/', function(s){
+          $.get({% url 'filter_favorite' %}, function(s){
 //              alert(s)
               main_notes(s);
 //                $('#main_clean').empty();		// todo: выделить повторяющиеся две строчки

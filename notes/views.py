@@ -9,7 +9,7 @@ from notes.models import Notes, Category
 from notes.forms import NoteForm
 
 
-def notes(request, first='-date', second='title'):
+def notes(request, first='-date_modified', second='title'):
     args = {
         'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(publish=True).order_by(first, second)
@@ -41,8 +41,8 @@ def filter_date(request):
     args = {
         'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(
-            date__gt=(last_date),
-            author=auth.get_user(request)).order_by('date')
+            date_modified__gt=(last_date),
+            author=auth.get_user(request)).order_by('date_modified')
         .select_related('category', 'author'),
     }
     return render_to_response('notes_ajax.html', args)
