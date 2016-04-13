@@ -5,7 +5,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>Менеджер заметок</title>
 
@@ -18,7 +17,7 @@
             $('#main_notes').html(s);
         }
         function my_notes() {
-          $.post('/mynotes/', {
+          $.post({%url 'my_notes'%}, {
               first:"-date",
               second:"title",
               }, function(s){
@@ -79,7 +78,7 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="/">Главная</a>
+          <a class="blog-nav-item" href="/">Главная</a>
             {% if not username %}
           <a class="blog-nav-item" href="{% url 'register' %}">Регистрация</a>
           <a class="blog-nav-item" href="{% url 'login' %}">Вход</a>
@@ -134,8 +133,9 @@
             <li><a href="{% url 'form_filter_title' %}">Фильтр по заголовку</a></li>
             {% endif %}
               <form action="{% url 'filter_title'%}" method="get">
-                <input type="submit" value="filter">
+
                 <input type="text" name="q" placeholder="filter title">
+                  <input type="submit" value="filter">
             </form>
             <li>Использовался:</li>
             <li>Python 3.5</li>

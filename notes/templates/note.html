@@ -14,7 +14,7 @@
     {% endif %}
         {% endif %}
         </h2>
-    <p class="blog-post-meta">{{ note.date }} by {{ note.author.username }} Категория: {{ note.category }}</p></p>
+    <p class="blog-post-meta">{{ note.date_added }} by {{ note.author.username }} Категория: {{ note.category }}</p></p>
     <P>{{note.text | safe}}</P>
     {% if note.publish %}
     url : htt://localhost:8000/note/{{ note.id }}
