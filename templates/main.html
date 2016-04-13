@@ -15,7 +15,13 @@
     <script>
         function main_notes(s){
             $('#main_clean').empty();
-            $('#main_notes').html(s);
+            $('#main_notes').empty();
+            if (s.length > 4){
+               $('#main_notes').html(s);
+            } else {
+              $('#main_notes').html('Заметок нет');
+            }
+
         }
           function my_notes() {
           $.post('{% url 'my_notes' %}', {
@@ -107,11 +113,12 @@
 
           <div class="sidebar-module sidebar-module-inset">
             {% if username %}
+             {{ request }}
             <h4>О заметках:</h4>
             <li><a href="{% url 'create' %}">Создать заметку</a></li>      {# todo: использовать {% url <...> %} #}
             <li><a href="#" onclick="return my_notes()">Все мои заметки</a></li>
-            <li><a href="#" onclick="return sort_notes_category()">Сорировка по Категориям</a></li>
-            <li><a href="#" onclick="return sort_notes_favorites()">Сорировка по Избраным</a></li>
+            <li><a href="#" onclick="return sort_notes_category()">Сортировка по Категориям</a></li>
+            <li><a href="#" onclick="return sort_notes_favorites()">Сортировка по Избранным</a></li>
             <li><a href="#" onclick="return filter_week()">Заметки за неделю</a></li>
             <li><a href="#" onclick="return filter_month()">Заметки за месяц</a></li>
             <li><a href="#" onclick="return filter_favorites()">Избранные</a></li>
