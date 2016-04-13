@@ -1,5 +1,4 @@
 import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
@@ -108,8 +107,6 @@ def note_create(request):
 
 @login_required(login_url='/auth/login/')
 def note_edit(request, id=None):
-    if not request.user:
-        raise Http404
     instance = Notes.objects.get(id=id, author=auth.get_user(request).id)
     form = NoteForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -125,9 +122,8 @@ def note_edit(request, id=None):
     return render(request, "note_edit.html", args)
 
 
+@login_required(login_url='/auth/login/')
 def note_del(request, id=None):
-    if not request.user:
-        raise Http404
     args = {
         object: Notes.objects.filter(id=id,
                                      author=auth.get_user(request).id).delete()}

@@ -3,7 +3,7 @@
 {% block notes %}
 <div class='col-sm-6 col-sm-offset-3'>
 <h1>Редактирование</h1>
-
+<form method='POST' action='' enctype='multipart/form-data'>
 
     {% csrf_token %}
 
@@ -11,16 +11,16 @@
 
       {{form.title}}
 <br>
-    <form method='POST' action='' enctype='multipart/form-data'>
+
             <textarea type="text" name="text" id="text" rows="10" cols="80">
             </textarea>
             <script>
                 CKEDITOR.replace('text');
-            </script></form>
-
+            </script>
+    {{form.text}}
     {{form.category}}
     {{form.publish}}
-
+</form>
 
 </div>
 
