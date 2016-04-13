@@ -4,8 +4,8 @@ from notes.models import Notes, Category
 
 class Notes_Admin(admin.ModelAdmin):
     fields = ['title', 'text', 'author', 'favorites', 'category', 'publish']
-    list_display = ['title', 'date_modified']
-    list_filter = ['title']
+    list_display = ['title', 'date_modified','author']
+    list_filter = ['category']
     search_fields = ['title']
 
 

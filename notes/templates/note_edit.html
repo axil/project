@@ -1,30 +1,22 @@
 {% extends 'main.html' %}
 {% load staticfiles %}
 {% block notes %}
-<div class='col-sm-6 col-sm-offset-3'>
-<h1>Редактирование</h1>
-<form method='POST' action='' enctype='multipart/form-data'>
+<form method='POST' enctype='multipart/form-data'>
 
     {% csrf_token %}
+    <p> Title: {{form.title}} </p>
 
-
-
-      {{form.title}}
-<br>
-
-            <textarea type="text" name="text" id="text" rows="10" cols="80">
-            </textarea>
-            <script>
-                CKEDITOR.replace('text');
-            </script>
-    {{form.text}}
-    {{form.category}}
-    {{form.publish}}
+    <textarea name="text">
+        {{form.text}}
+    </textarea>
+    <script>
+        CKEDITOR.replace('text');
+    </script>
+    <p> Category : {{form.category}} </p>
+    <p> Publish: {{form.publish}}</p>
+    <input type='submit' class='btn btn-default' value='Edit Post' />
 </form>
-
-</div>
-
-<input type='submit' class='btn btn-default' value='Edit Post' /></br>
+<div>
 {% endblock %}
 
 

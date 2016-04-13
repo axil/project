@@ -112,10 +112,10 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <div id="main_clean">{% block notes %}{% endblock %}</div>
             <p id="main_notes"></p>
-            <div id="main_clean">{% block loginsys %}{% endblock %}</div>
-            <div id="main_clean"> <p>{% block search %}{% endblock %}</p></div>
+            <div id="main_clean">{% block loginsys %}{% endblock %}
+                                 {% block notes %}{% endblock %}
+                                 {% block search %}{% endblock %}</p></div>
           </div>
 
 

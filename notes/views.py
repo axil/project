@@ -21,6 +21,7 @@ def notes(request, first='-date_modified', second='title'):
 
 
 @csrf_exempt
+@login_required(login_url='/auth/login/')
 def my_notes(request):
     first = request.POST.get('first')
     second = request.POST.get('second')
@@ -36,6 +37,7 @@ def my_notes(request):
 
 
 @csrf_exempt
+@login_required(login_url='/auth/login/')
 def filter_date(request):
     date = int(request.POST.get('date'))
     last_date = datetime.datetime.today() - datetime.timedelta(date)
@@ -43,13 +45,14 @@ def filter_date(request):
         'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(
             date_modified__gt=(last_date),
-            author=auth.get_user(request)).order_by('date_modified')
+            author=auth.get_user(request)).order_by('date_added')
         .select_related('category', 'author'),
     }
     return render_to_response('notes_ajax.html', args)
 
 
 @csrf_exempt
+@login_required(login_url='/auth/login/')
 def filter_favorites(request):
     args = {
         'username': auth.get_user(request).username,
@@ -69,7 +72,7 @@ def note(request, id=None):
     }
     return render_to_response('note.html', args)
 
-
+@login_required(login_url='/auth/login/')
 def category(request, category_id=1):
     args = {
         'category_all': Category.objects.all(),
@@ -130,7 +133,7 @@ def note_del(request, id=None):
     args.update(csrf(request))
     return render_to_response('deleted.html', args)
 
-
+@login_required(login_url='/auth/login/')
 def addfavorites(request, id=None):
     back_url = request.META['HTTP_REFERER']
     try:
@@ -139,7 +142,7 @@ def addfavorites(request, id=None):
         raise Http404
     return redirect(back_url)
 
-
+@login_required(login_url='/auth/login/')
 def removefavorites(request, id=None):
     back_url = request.META['HTTP_REFERER']
     try:
