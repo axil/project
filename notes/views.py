@@ -86,7 +86,7 @@ def note_create(request):
         raise Http404
     args = {
         'category_all': Category.objects.all(),
-        'form': NoteForm(),
+        'form': NoteForm(initial={'category': Category.objects.get(name=u'Заметка')}),
     }
     args.update(csrf(request))
     if request.POST:
