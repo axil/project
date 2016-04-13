@@ -54,7 +54,7 @@ def filter_favorites(request):
         'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(
             favorites=True,
-            author=auth.get_user(request)).order_by('-date')
+            author=auth.get_user(request)).order_by('-date_modified')
         .select_related('category', 'author'),
     }
     return render_to_response('notes_ajax.html', args)

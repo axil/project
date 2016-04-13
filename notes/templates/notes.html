@@ -5,7 +5,7 @@
 {% for note in notes %}
 
 <div class="blog-post">
-    <h2 class="blog-post-title"><a href="/note/{{note.id}}"> {{ note.title }}</a>
+    <h2 class="blog-post-title"><a href="{% url 'note' note.id %}"> {{ note.title }}</a>
     {% if username == note.author.username %}      {# todo должно быть == #}
     <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>   
 	{# здесь и ниже можно вынести повторяющиеся width и height в .css файл #}
@@ -22,10 +22,7 @@
     Категория: {{note.category}}</p>
     <P> {{note.text | safe}}</P>
     {% if note.publish %}
-    {#url : http://localhost:8000/note/{{ note.id }}			 todo сделайте кликабельной ссылкой, уберите абс.url #}
-     {% url 'note' note.id %}
-
-    <p> url : <a href="/note/{{note.id}}">http://localhost:8000/note/{{note.id}}</a></p>
+    <p> url : <a href="{% url 'note' note.id %}">http://localhost:8000/{% url 'note' note.id %}</a></p>
     {% endif %}
 </div>
 {% endfor %}

@@ -3,7 +3,7 @@
 {% for note in notes %}
 
 <div class="blog-post">
-    <h2 class="blog-post-title"><a href="/note/{{note.id}}"> {{ note.title }}</a>
+    <h2 class="blog-post-title"><a href="{% url 'note' note.id %}"> {{ note.title }}</a>
     {% if username == note.author.username %}
     <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>
     <a href="/note/{{note.id}}/edit/"><img src="{% static 'img/edit.png' %} "  width="30" height="30"/></a>
@@ -18,8 +18,8 @@
     <p class="blog-post-meta">{{ note.date_added }} by {{ note.author.username }}
     Категория: {{ note.category }}</p></p>
     <P>{{note.text | safe}}</P>
-    {% if note.publish %}
-    url : htt://localhost:8000/note/{{note.id}}
+     {% if note.publish %}
+    <p> url : <a href="{% url 'note' note.id %}">http://localhost:8000/{% url 'note' note.id %}</a></p>
     {% endif %}
 </div>
 {% endfor %}
