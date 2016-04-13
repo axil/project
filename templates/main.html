@@ -13,59 +13,45 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>			{# todo: должно быть в head #}
     <script src="//cdn.ckeditor.com/4.5.8/basic/ckeditor.js"></script>
     <script>
-        function main_notes(){
+        function main_notes(s){
             $('#main_clean').empty();
-            $('#main_notes').html();
+            $('#main_notes').html(s);
         }
-        function my_notes() {
+          function my_notes() {
           $.post('{% url 'my_notes' %}', {
               first:"-date_modified",
               second:"title",
-              },main_notes());
+              }, main_notes);
             return false;
         }
         function sort_notes_category() {
           $.post('{% url 'ajax_sort' %}', {
               first:"category",
               second:"title",
-              },main_notes(s)
-            );
+              }, main_notes);
             return false;
         }
         function sort_notes_favorites() {
           $.post('{% url 'ajax_sort' %}', {
               first:"-favorites",
               second:"-date_modified",
-              }, function(s){
-                main_notes(s);
-            });
+              }, main_notes);
             return false;
         }
         function filter_week() {
           $.post('{% url 'filter_date' %}', {
               date: "7",
-              }, function(s){
-//              alert(s)
-                main_notes(s);
-            });
+              }, main_notes);
             return false;
         }
         function filter_month() {
           $.post('{% url 'filter_date' %}', {
               date: "31",
-              }, function(s){
-//              alert(s)
-               main_notes(s);
-            });
+              }, main_notes);
             return false;
         }
         function filter_favorites() {
-          $.get('{% url 'filter_favorite' %}', function(s){
-//              alert(s)
-              main_notes(s);
-//                $('#main_clean').empty();		// todo: выделить повторяющиеся две строчки
-//                $('#main_notes').html(s);       // в именованную функцию
-            });
+          $.get('{% url 'filter_favorite' %}',main_notes);
             return false;
         }
     </script>
