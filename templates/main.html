@@ -13,26 +13,23 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>			{# todo: должно быть в head #}
     <script src="//cdn.ckeditor.com/4.5.8/basic/ckeditor.js"></script>
     <script>
-        function main_notes(s){
+        function main_notes(){
             $('#main_clean').empty();
-            $('#main_notes').html(s);
+            $('#main_notes').html();
         }
         function my_notes() {
           $.post('{% url 'my_notes' %}', {
               first:"-date_modified",
               second:"title",
-              }, function(s){
-                main_notes(s);
-            });
+              },main_notes());
             return false;
         }
         function sort_notes_category() {
           $.post('{% url 'ajax_sort' %}', {
               first:"category",
               second:"title",
-              }, function(s){
-                main_notes(s);
-            });
+              },main_notes(s)
+            );
             return false;
         }
         function sort_notes_favorites() {
