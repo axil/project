@@ -2,7 +2,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
@@ -12,12 +12,11 @@ from notes.forms import NoteForm
 
 def notes(request, first='-date_modified', second='title'):
     args = {
-        'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(publish=True).order_by(first, second)
             .select_related('category', 'author'),
         'category_all': Category.objects.all()
     }
-    return render_to_response('notes.html', args)
+    return render(request, 'notes.html', args)
 
 
 @csrf_exempt
@@ -26,14 +25,13 @@ def my_notes(request):
     first = request.POST.get('first')
     second = request.POST.get('second')
     args = {
-        'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(
             author=auth.get_user(request)).order_by(first, second)
             .select_related('category', 'author'),
     }
     # tempate = get_template('notes_ajax.html')
     # import ipdb; ipdb.set_trace()
-    return render_to_response('notes_ajax.html', args)
+    return render(request, 'notes_ajax.html', args)
 
 
 @csrf_exempt
@@ -42,35 +40,32 @@ def filter_date(request):
     date = int(request.POST.get('date'))
     last_date = datetime.datetime.today() - datetime.timedelta(date)
     args = {
-        'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(
             date_modified__gt=(last_date),
             author=auth.get_user(request)).order_by('date_added')
         .select_related('category', 'author'),
     }
-    return render_to_response('notes_ajax.html', args)
+    return render(request, 'notes_ajax.html', args)
 
 
 @csrf_exempt
 @login_required(login_url='/auth/login/')
 def filter_favorites(request):
     args = {
-        'username': auth.get_user(request).username,
         'notes': Notes.objects.filter(
             favorites=True,
             author=auth.get_user(request)).order_by('-date_modified')
         .select_related('category', 'author'),
     }
-    return render_to_response('notes_ajax.html', args)
+    return render(request, 'notes_ajax.html', args)
 
 
 def note(request, id=None):
     args = {
         'note': Notes.objects.get(id=id),
-        'username': auth.get_user(request).username,   # todo в шаблонах можно использовать request напрямую
         'category_all': Category.objects.all(),            # http://stackoverflow.com/questions/702592/django-request-in-template
     }
-    return render_to_response('note.html', args)
+    return render(request, 'note.html', args)
 
 @login_required(login_url='/auth/login/')
 def category(request, category_id=1):
@@ -81,9 +76,8 @@ def category(request, category_id=1):
             category=category_id,
             author=auth.get_user(request).id)
         .select_related('category', 'author'),
-        'username': auth.get_user(request).username,
     }
-    return render_to_response('category.html', args)
+    return render(request, 'category.html', args)
 
 
 @login_required(login_url='/auth/login/')
@@ -91,7 +85,6 @@ def note_create(request):
     if not request.user:   # todo должно быть and
         raise Http404
     args = {
-        'username':  auth.get_user(request).username,
         'category_all': Category.objects.all(),
         'form': NoteForm(),
     }
@@ -105,7 +98,7 @@ def note_create(request):
             return redirect('/')
         else:
             args['form'] = new_form
-    return render_to_response('create.html', args)
+    return render(request, 'create.html', args)
 
 
 @login_required(login_url='/auth/login/')
@@ -116,7 +109,6 @@ def note_edit(request, id=None):
         form.save()
         return redirect('/')
     args = {
-        'username': auth.get_user(request).username,
         'title': instance.title,
         'instance': instance,
         'form': form,
@@ -131,7 +123,7 @@ def note_del(request, id=None):
         object: Notes.objects.filter(id=id,
                                      author=auth.get_user(request).id).delete()}
     args.update(csrf(request))
-    return render_to_response('deleted.html', args)
+    return render(request, 'deleted.html', args)
 
 @login_required(login_url='/auth/login/')
 def addfavorites(request, id=None):

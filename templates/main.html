@@ -64,12 +64,11 @@
   </head>
 
   <body>
-
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
           <a class="blog-nav-item" href="/">Главная</a>
-            {% if not username %}
+            {% if not user.is_authenticated %}
           <a class="blog-nav-item" href="{% url 'register' %}">Регистрация</a>
           <a class="blog-nav-item" href="{% url 'login' %}">Вход</a>
             {% else %}
@@ -112,7 +111,7 @@
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 
           <div class="sidebar-module sidebar-module-inset">
-            {% if username %}
+            {% if user.is_authenticated %}
             <h4>О заметках:</h4>
             <li><a href="{% url 'create' %}">Создать заметку</a></li>      {# todo: использовать {% url <...> %} #}
             <li><a href="#" onclick="return my_notes()">Все мои заметки</a></li>
@@ -135,7 +134,7 @@
             <li>Ckeditor</li>
             <li>Bootstrap</li>
           </div>
-          {% if username %}
+          {% if user.is_authenticated %}
           <div class="sidebar-module">
             <h4>Archives</h4>
               <ol class="list-unstyled">

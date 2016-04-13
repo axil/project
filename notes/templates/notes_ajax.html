@@ -4,7 +4,7 @@
 
 <div class="blog-post">
     <h2 class="blog-post-title"><a href="{% url 'note' note.id %}"> {{ note.title }}</a>
-    {% if username == note.author.username %}
+    {% if user == note.author %}
     <a href="/note/{{note.id}}/del/"><img  src="{% static 'img/del.png' %} "  width="40" height="40"/></a>
     <a href="/note/{{note.id}}/edit/"><img src="{% static 'img/edit.png' %} "  width="30" height="30"/></a>
     {% if not note.favorites %}
