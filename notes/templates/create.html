@@ -3,10 +3,28 @@
 {% load i18n mptt_tags %}
 {% block notes %}
 <div class='col-sm-6 col-sm-offset-3'>
-    <h1>Form</h1>
-    <form method='POST' action=''>{% csrf_token %}
-        {{ form.as_p }}
-        <input type='submit' class='btn btn-default' value='Create Post' />
-    </form>
+<h1>Редактирование</h1>
+
+
+    {% csrf_token %}
+
+
+
+      {{form.title}}
+<br>
+    <form method='POST' action='' enctype='multipart/form-data'>
+            <textarea type="text" name="text" id="text" rows="10" cols="80">
+            </textarea>
+            <script>
+                CKEDITOR.replace('text');
+            </script></form>
+
+    {{form.category}}
+    </br>
+    {{form.publish}}
+
+
 </div>
+
+<input type='submit' class='btn btn-default' value='Edit Post' /></br>
 {%  endblock %}
