@@ -1,3 +1,3 @@
 django==1.9.5
-ckeditor
-mptt
+django-ckeditor
+django-mptt

@@ -113,7 +113,6 @@
 
           <div class="sidebar-module sidebar-module-inset">
             {% if username %}
-             {{ request }}
             <h4>О заметках:</h4>
             <li><a href="{% url 'create' %}">Создать заметку</a></li>      {# todo: использовать {% url <...> %} #}
             <li><a href="#" onclick="return my_notes()">Все мои заметки</a></li>
